@@ -15,4 +15,6 @@ MotorMeter is written by a single developer to better encapsulate and extend a s
 ## Special Thanks
 I want to give a special shout out to Gerrit Barrere at Exality.com for his work on the python Zfit tool. Gerrit's work took this application from a quality of life improvement to a truly powerful tool. Gerrit laid a large foundation for analyzing complex circuit behavior and his work was generously laid out as open source to enable further development like this.
 
-I would also like to thank my software and electronics mentor Matt P. Matt saw the potential in even the early versions of this tool. Its not often an engineer with over 20 years of experience in a highly specialized field looks so fondly on an avant garde solution to an old problem.
+I would also like to thank my software and electronics mentor Matt P. Matt saw the potential in this design approach and the necessary software. Its not often an engineer with over 20 years of experience in a highly specialized field looks so fondly on an avant garde solution to an old problem.
+
+Finally a large thanks to my wife and daughter who sacrificed a lot of family time for this application. 
