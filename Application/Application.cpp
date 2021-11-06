@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include "serialBase.h"
 
 int main()
 {
