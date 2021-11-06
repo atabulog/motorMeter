@@ -2,15 +2,22 @@
 //
 
 #include <iostream>
-#include "serialBase.h"
+#include <Windows.h>
+#include "BK891LCR.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	//connect to device
+	BK891LCR device = BK891LCR("COM3");
+
+	//disconnect on exit
+	device.disconnect();
+
+	
+	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+
 
 // Tips for Getting Started: 
 //   1. Use the Solution Explorer window to add/manage files

@@ -13,10 +13,12 @@ developer.
 //constructor
 SerialBase::SerialBase(std::string port)
 {
-	//load serialBase with default values
-	port = serial::port_header+ port;
-	this->port = port.c_str();
+	//init general params
+	strcpy_s(this->port, serial::portStrLen, (serial::port_header + port).c_str());
 	this->hcomm = INVALID_HANDLE_VALUE;
+	this->printMessageFlag = true;
+
+	//init buffer specific data
 	this->readBuffer;
 	memset(this->readBuffer, 0, sizeof(this->readBuffer));
 	this->writeBuffer;
@@ -25,14 +27,25 @@ SerialBase::SerialBase(std::string port)
 	this->writeStatus = false;
 	this->readIndex = 0;
 	this->writeIndex = 0;
-	this->printMessageFlag = true;
+
+	//init dcb data
+	this->dcb;
+	this->dcbPtr = &this->dcb;
+	this->dcb.DCBlength = sizeof(this->dcb);
+
+	//init timeout data
+	this->timeout;
+	this->timeoutPtr = &this->timeout;
+	
 }
+
 
 //deconstructor
 SerialBase::~SerialBase(void){}
 
+
 //connect object to physical device on stored COM port with supplied configuration settings.
-void	SerialBase::connect(LPDCB dcbPtr, LPCOMMTIMEOUTS timeoutPtr)
+void	SerialBase::connect(void)
 {
 	//attempts serial connection until a max attempt count is reached
 	for (uint32_t i = 0; i < serial::maxConnAttemps; i++)
@@ -50,11 +63,12 @@ void	SerialBase::connect(LPDCB dcbPtr, LPCOMMTIMEOUTS timeoutPtr)
 		if (this->hcomm != INVALID_HANDLE_VALUE)
 		{
 			//confgure IO resource for serial communication with dcb and commTimeout.	
-			SetCommState(this->hcomm, dcbPtr);
-			SetCommTimeouts(this->hcomm, timeoutPtr);
+			SetCommState(this->hcomm, this->dcbPtr);
+			SetCommTimeouts(this->hcomm, this->timeoutPtr);
 			break;
 		}
 	}
+
 
 	//print connection messages
 	if (this->hcomm == INVALID_HANDLE_VALUE)
@@ -67,11 +81,20 @@ void	SerialBase::connect(LPDCB dcbPtr, LPCOMMTIMEOUTS timeoutPtr)
 	}
 }
 
+
 // disconnect object from serial device on given COM port.
 void	SerialBase::disconnect(void)
 {
-	CloseHandle(this->hcomm);//Close connection to the Serial Port
+	//Close connection to the Serial Port
+	CloseHandle(this->hcomm);
+
+	//print message if allowed
+	if (this->printMessageFlag)
+	{
+		std::cout << serial::disconnectMsg;
+	}
 }
+
 
 //reads data from device and stores at top of read buffer.
 void	SerialBase::read(void)
@@ -86,6 +109,7 @@ void	SerialBase::read(void)
 														NULL);
 }
 
+
 //writes data in write buffer to device.
 void	 SerialBase::write(void)
 {
@@ -99,6 +123,7 @@ void	 SerialBase::write(void)
 															NULL);
 }
 
+
 //prints given message if printMessageFlag attribute is true
 void SerialBase::print_message(LPCSTR msg)
 {
@@ -107,6 +132,7 @@ void SerialBase::print_message(LPCSTR msg)
 		std::cout << msg;
 	}
 }
+
 
 void SerialBase::append_CR(void)
 {
@@ -120,6 +146,7 @@ void SerialBase::append_CR(void)
 	}
 }
 
+
 void SerialBase::append_LF(void)
 {
 	if (this->writeIndex < serial::writeBufferSize-1)
@@ -131,6 +158,7 @@ void SerialBase::append_LF(void)
 		this->writeBuffer[this->writeIndex] = serial::LF;
 	}
 }
+
 
 void SerialBase::append_CRLF(void)
 {

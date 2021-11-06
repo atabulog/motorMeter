@@ -140,9 +140,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BK891LCR.cpp" />
     <ClCompile Include="SerialBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BK891LCR.h" />
     <ClInclude Include="SerialBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

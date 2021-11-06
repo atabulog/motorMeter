@@ -24,9 +24,15 @@
     <ClCompile Include="SerialBase.cpp">
       <Filter>Source Files\comms</Filter>
     </ClCompile>
+    <ClCompile Include="BK891LCR.cpp">
+      <Filter>Source Files\comms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SerialBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BK891LCR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
