@@ -23,6 +23,13 @@ public:
 	//writes given data to write buffer and appends with proper term char(s)
 	void pack_writeBuff(LPCSTR data);
 
+
+	/*
+	* DEVICE INTERACTION METHODS
+	*/
+	//Get device ID from SCPI *IDN? query
+	void get_devID(void);
+
 protected:
 	//attributes
 	//methods

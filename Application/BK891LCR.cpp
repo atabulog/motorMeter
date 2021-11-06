@@ -31,8 +31,10 @@ BK891LCR::BK891LCR(std::string port)
 	this->connect();
 }
 
+
 ///Deconstructor
 BK891LCR::~BK891LCR(void) {}
+
 
 //
 void BK891LCR::pack_writeBuff(LPCSTR data)
@@ -44,4 +46,20 @@ void BK891LCR::pack_writeBuff(LPCSTR data)
 	}
 	//handle CR+LF termination
 	this->append_CRLF();
+}
+
+
+
+/*
+	* DEVICE INTERACTION METHODS
+	*/
+//Get device ID from SCPI *IDN? query
+void BK891LCR::get_devID(void)
+{
+	//pack query and write to device
+	this->pack_writeBuff("*IDN?");
+	this->write();
+	//read response and print message
+	this->read();
+	this->print_message(this->readBuffer);
 }

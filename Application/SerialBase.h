@@ -10,6 +10,7 @@ developer.
 
 //includes
 #include <Windows.h>
+#include <vector>
 #include <string.h>
 
 //default constants for serial base object
@@ -32,12 +33,12 @@ class SerialBase
 {
 public:
 	//attributes
-	char							port[serial::portStrLen];																//pointer to string defining port
-	bool						printMessageFlag;										//flag that determines if serial data and connection messages are printed.
-	char							readBuffer[serial::readBufferSize];			//buffer holding read data
-	char							writeBuffer[serial::writeBufferSize];			//buffer holding write data
-	bool						readStatus;													//status flag of most recent serial read
-	bool						writeStatus;													//status flag of most recent serial write
+	char	port[serial::portStrLen];				//pointer to string defining port
+	char	readBuffer[serial::readBufferSize];		//buffer holding read data
+	char	writeBuffer[serial::writeBufferSize];	//buffer holding write data
+	bool	printMessageFlag;						//flag that determines if serial data and connection messages are printed.
+	bool	readStatus;								//status flag of most recent serial read
+	bool	writeStatus;							//status flag of most recent serial write
 
 	//methods
 	//object constructor
@@ -51,9 +52,9 @@ public:
 	void	disconnect(void);
 
 	//reads data from device and stores at top of read buffer.
-	void	read(void) ;
+	void	read(void);
 	//writes data in write buffer to device.
-	void	 write(void) ;
+	void	 write(void);
 
 	//virtual function to load data to the write buffer. must be formatted properly per device.
 	virtual void pack_writeBuff(LPCSTR data) = 0;
@@ -61,27 +62,32 @@ public:
 	//prints given message if printMessageFlag attribute is true
 	void print_message(LPCSTR msg);
 
-
 protected:
 	//attributes
-	uint32_t							writeIndex;				//current index location of writeBuffer
-	uint32_t							readIndex;					//current index location of readBuffer
-	HANDLE							hcomm;						//handle to serial connection
-	DCB									dcb;								//data control block defining serial connection parameters
-	LPDCB								dcbPtr;						//pointer to DCB data
-	COMMTIMEOUTS			timeout;						//timeout struct defining serial timeout parameters
+	uint32_t		writeIndex;				//current index location of writeBuffer
+	uint32_t		readIndex;				//current index location of readBuffer
+	HANDLE			hcomm;					//handle to serial connection
+	DCB				dcb;					//data control block defining serial connection parameters
+	LPDCB			dcbPtr;					//pointer to DCB data
+	COMMTIMEOUTS	timeout;				//timeout struct defining serial timeout parameters
 	LPCOMMTIMEOUTS	timeoutPtr;				//pointer to timeout struct
 
 	//methods
 	//safely append CR '\r' to write buffer
-	void					append_CR(void);
+	void	append_CR(void);
 	//safely append LF '\n' to write buffer
-	void					append_LF(void);
+	void	append_LF(void);
 	//safely append CR and LF '\r\n' to write buffer
-	void					append_CRLF(void);
+	void	append_CRLF(void);
 
 private:
 	//attributes
 	//methods
 };
 
+
+/*
+*generic serial functions
+*/
+//return string array of currently connected COM ports
+std::vector<std::string> get_activeComPorts(void);

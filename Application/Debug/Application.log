@@ -1,2 +1,5 @@
-﻿  SerialBase.cpp
+﻿  Application.cpp
+  BK891LCR.cpp
+  SerialBase.cpp
+  Generating Code...
   Application.vcxproj -> C:\Users\Austi\Documents\git repos\motorMeter\Application\Debug\Application.exe

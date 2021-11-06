@@ -8,6 +8,7 @@ developer.
 
 //includes
 #include <iostream>
+#include <vector>
 #include "SerialBase.h"
 
 //constructor
@@ -129,7 +130,7 @@ void SerialBase::print_message(LPCSTR msg)
 {
 	if (this->printMessageFlag)
 	{
-		std::cout << msg;
+		std::cout << msg << "\n";
 	}
 }
 
@@ -173,4 +174,16 @@ void SerialBase::append_CRLF(void)
 		this->writeBuffer[this->writeIndex-1] = serial::CR;
 		this->writeBuffer[this->writeIndex++] = serial::LF;
 	}
+}
+
+/*
+*generic serial functions
+*/
+//return string array of currently connected COM ports
+std::vector<std::string> get_activeComPorts(void)
+{
+	//use this as a reference https://riptutorial.com/windows/example/32102/listing-all-serial-ports-
+	//TODO: makes this actually work instead of returning an empty string vector
+	std::vector<std::string> temp;
+	return temp;
 }
