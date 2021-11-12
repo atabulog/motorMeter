@@ -10,6 +10,21 @@ device's communication API.
 #include<windows.h>
 #include "SerialBase.h"
 
+namespace bk891
+{
+	const char query_ID[] = "*IDN?";			//fetch device ID
+	const char fetch_data[] = "FETC?";			//fetch current measurement
+}
+
+//structure definitions
+typedef struct
+{
+	double primVal;
+	std::string primUnit;
+	double secVal;
+	std::string secUnit;
+}measDataStruct;
+
 //object definition
 class BK891LCR : public virtual SerialBase
 {
@@ -30,13 +45,18 @@ public:
 	//Get device ID from SCPI *IDN? query
 	void get_devID(void);
 
+	//Get current device measurement with FETC? query
+	void fetch_meas(void);
+
 protected:
 	//attributes
 	//methods
 
 private:
 	//attributes
+	measDataStruct measData;
 	//methods
+	void store_measData(std::string s);
 
 };
 

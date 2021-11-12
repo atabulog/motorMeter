@@ -1,12 +1,17 @@
 // MotorMeterApp.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
+#include <windows.h>
 #include <iostream>
 #include "BK891LCR.h"
 
 int main()
 {
     BK891LCR device = BK891LCR("COM3", true);
+	for (size_t i = 0; i < 3; i++)
+	{
+		device.fetch_meas();
+		Sleep(300);
+	}
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

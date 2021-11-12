@@ -12,8 +12,19 @@ namespace unitTestsSerialDeviceLib
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(test_objectInit)
 		{
+			BK891LCR device = BK891LCR("COM3");
+			Assert::AreEqual("\\\\.\\COM3", device.port);
+		}
+	};
+
+	TEST_CLASS(unitTestsBK891LCR)
+	{
+	public:
+		TEST_METHOD(Test_store_measData)
+		{
+			//create null connection device
 			BK891LCR device = BK891LCR("COM3");
 			Assert::AreEqual("\\\\.\\COM3", device.port);
 		}

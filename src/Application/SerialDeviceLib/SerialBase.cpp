@@ -103,12 +103,14 @@ void	SerialBase::read(void)
 {
 	//create temp number of bytes read
 	DWORD numBytesRead = 0;
+	
 	//read from serial device.
 	this->readStatus = ReadFile(this->hcomm,
 		this->readBuffer,
 		sizeof(this->readBuffer),
 		&numBytesRead,
 		NULL);
+
 }
 
 

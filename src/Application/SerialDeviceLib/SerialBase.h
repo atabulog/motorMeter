@@ -28,6 +28,7 @@ namespace serial
 	const char port_header[] = "\\\\.\\";
 }
 
+
 //serial base object
 class SerialBase
 {
