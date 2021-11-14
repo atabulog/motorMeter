@@ -30,8 +30,8 @@ BK891LCR::BK891LCR(std::string port, bool printMessage)
 	this->timeout.WriteTotalTimeoutConstant = 100;
 
 	//configure default measurement data
-	this->measData.primUnit = "";
 	this->measData.primVal = 0.0;
+	this->measData.primUnit = "";
 	this->measData.secUnit = "";
 	this->measData.secVal = 0.0;
 
@@ -101,26 +101,41 @@ void BK891LCR::store_measData(std::string s)
 	int i = 0;
 	for (auto& tempStr : readVect)
 	{
-		//trim leading and trailing whitespace
-		tempStr = strTools::trim(tempStr);
-		//split by central whitespace (two space) and store to subVect
-		subVect = strTools::split(tempStr, "  ");
-		//store to primary data
-		if (i == 0)
+		try
 		{
-			this->measData.primUnit = subVect[1];
-			this->measData.primVal = std::stod(subVect[0]);
+			//trim leading and trailing whitespace
+			tempStr = strTools::trim(tempStr);
+			//split by central whitespace (two space) and store to subVect
+			subVect = strTools::split(tempStr, "  ");
+			//catch bad split error
+			if (subVect.size() == 1)
+			{
+				throw(subVect.size());
+			}
+			//store to primary data
+			else if (i == 0)
+			{
+				this->measData.primUnit = subVect[1];
+				this->measData.primVal = std::stod(subVect[0]);
+			}
+			//store to secondary data
+			else if (i == 1)
+			{
+				this->measData.secUnit = subVect[1];
+				this->measData.secVal = std::stod(subVect[0]);
+			}
+			else
+			{
+				break;
+			}
+			i++;
 		}
-		//store to secondary data
-		else if (i == 1)
+		//exit loop if bad split
+		catch(unsigned int index)
 		{
-			this->measData.secUnit = subVect[1];
-			this->measData.secVal = std::stod(subVect[0]);
-		}
-		else
-		{
+			(void)index;
 			break;
 		}
-		i++;
+		
 	}
 }

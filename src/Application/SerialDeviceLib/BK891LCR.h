@@ -12,19 +12,52 @@ device's communication API.
 
 namespace bk891
 {
-	const char query_ID[] = "*IDN?";			//fetch device ID
-	const char fetch_data[] = "FETC?";			//fetch current measurement
+	const char query_ID[] = "*IDN?";				//fetch device ID
+	const char fetch_data[] = "FETC?";				//fetch current measurement
+	const char query_measParams[] = "MEAS:FUNC?";	//fetch measurement parameters
+	//enum definitions
+	//primary measurement symbols
+	typedef enum
+	{
+		Cs,						//series capacitance
+		Cp,						//parallel capacitance
+		Ls,						//series inductance
+		Lp,						//parallel inductance
+		Z,						//impedance
+		Y,						//admittance
+		R_prim,					//Resistance at current AC frequency and level
+		G_prim,					//Conductance
+		DCR,					//DC resistance
+	}primMeasEnum;
+
+	//secondary measurement symbols for all primary measurements
+	typedef enum
+	{
+		Q,						//Q factor
+		D,						//Dialectric value
+		R_sec,					//resistance
+		G_sec,					//conductance
+		THETA,					//phase angle
+		X,						//reactance
+		B,						//susceptance
+	}secMeasEnum;
+
+	//structure definitions
+	//structure for measured data
+	typedef struct
+	{
+		double primVal;								//value for primary measurement
+		std::string primUnit;						//unit for primary measurement
+		double secVal;								//value for secondary measurement
+		std::string secUnit;						//unit for secondary measurement
+	}measDataStruct;
+
+	//structure for configuration data
+	typedef struct
+	{
+		primMeasEnum primMeas;
+	}measSettingsStruct;
 }
-
-//structure definitions
-typedef struct
-{
-	double primVal;
-	std::string primUnit;
-	double secVal;
-	std::string secUnit;
-}measDataStruct;
-
 //object definition
 class BK891LCR : public virtual SerialBase
 {
@@ -54,9 +87,8 @@ protected:
 
 private:
 	//attributes
-	measDataStruct measData;
+	bk891::measDataStruct measData;
 	//methods
 	void store_measData(std::string s);
-
 };
 
