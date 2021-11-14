@@ -101,14 +101,16 @@ void	SerialBase::disconnect(void)
 //reads data from device and stores at top of read buffer.
 void	SerialBase::read(void)
 {
-	//create temp number of bytes read
-	DWORD numBytesRead = 0;
+	//wipe all data in write buffer up to write index
+	memset(this->readBuffer, serial::nullChar, this->readIndex);
+	//reset number of bytes read
+	this->readIndex = 0;
 	
 	//read from serial device.
 	this->readStatus = ReadFile(this->hcomm,
 		this->readBuffer,
 		sizeof(this->readBuffer),
-		&numBytesRead,
+		&this->readIndex,
 		NULL);
 
 }

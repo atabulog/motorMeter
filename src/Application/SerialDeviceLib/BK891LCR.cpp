@@ -7,6 +7,7 @@ device's communication API.
 
 //includes
 #include <string>
+#include <map>
 #include <iostream>
 #include "BK891LCR.h"
 #include "framework.h"
@@ -35,6 +36,9 @@ BK891LCR::BK891LCR(std::string port, bool printMessage)
 	this->measData.secUnit = "";
 	this->measData.secVal = 0.0;
 
+	//initialize default measurement function
+	this->init_funcConfig();
+
 	//establish serial connection with these settings
 	this->connect();
 }
@@ -47,12 +51,15 @@ BK891LCR::~BK891LCR(void) {}
 //
 void BK891LCR::pack_writeBuff(LPCSTR data)
 {
+	//wipe all data in write buffer up to write index
+	memset(this->writeBuffer, serial::nullChar, this->writeIndex);
+
 	//load given string in write buffer bytewise
 	for (this->writeIndex = 0; this->writeIndex < strlen(data); this->writeIndex++)
 	{
 		this->writeBuffer[this->writeIndex] = data[this->writeIndex];
 	}
-	//handle CR+LF termination
+	//handle CR+LF termination and add to write index tally
 	this->append_CRLF();
 }
 
@@ -65,27 +72,41 @@ void BK891LCR::pack_writeBuff(LPCSTR data)
 void BK891LCR::get_devID(void)
 {
 	//pack query and write to device
-	this->pack_writeBuff(bk891::query_ID);
+	this->pack_writeBuff(bk891Internal::query_ID);
 	this->write();
 	//read response and print message
 	this->read();
 	this->print_message(this->readBuffer);
 }
 
+//Get current device measurement with FETC? query
 void BK891LCR::fetch_meas(void)
 {
 	//pack query and write to device
-	this->pack_writeBuff(bk891::fetch_data);
+	this->pack_writeBuff(bk891Internal::fetch_data);
 	this->write();
 
 	//read response and print message
 	this->read();
 	this->print_message(this->readBuffer);
 
+	//store data from read buffer into measurement data struct
 	this->store_measData(std::string(this->readBuffer));
 	
 }
 
+//set primary and secondary measurement functions
+void BK891LCR::set_measFunc(bk891::MeasFunc func)
+{
+	std::string temp = bk891Internal::set_measParams + this->funcConfig[func];
+	//pack stored string for given measurement function and write to device
+	this->pack_writeBuff(temp.c_str());
+	this->write();
+
+	//read response and print message
+	this->read();
+	this->print_message(this->readBuffer);
+}
 
 //private function to store measurement data
 void BK891LCR::store_measData(std::string s)
@@ -138,4 +159,29 @@ void BK891LCR::store_measData(std::string s)
 		}
 		
 	}
+}
+
+//private method to initialize function config map
+void BK891LCR::init_funcConfig(void)
+{
+	//add all enum keys and appropriate string value pairs to config map
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::DEFAULT, ""));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::CSQ, bk891Internal::func_CSQ));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::CSD, bk891Internal::func_CSD));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::CSR, bk891Internal::func_CSR));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::CPQ, bk891Internal::func_CPQ));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::CPD, bk891Internal::func_CPD));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::CPR, bk891Internal::func_CPR));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::CPG, bk891Internal::func_CPG));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::LSQ, bk891Internal::func_LSQ));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::LSD, bk891Internal::func_LSD));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::LSR, bk891Internal::func_LSR));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::LPQ, bk891Internal::func_LPQ));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::LPD, bk891Internal::func_LPD));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::LPR, bk891Internal::func_LPR));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::LPG, bk891Internal::func_LPG));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::ZTH, bk891Internal::func_ZTH));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::YTH, bk891Internal::func_YTH));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::RX, bk891Internal::func_RX));
+	this->funcConfig.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::GB, bk891Internal::func_GB));
 }

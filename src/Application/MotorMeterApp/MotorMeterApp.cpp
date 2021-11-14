@@ -7,10 +7,21 @@
 int main()
 {
     BK891LCR device = BK891LCR("COM3", true);
-	device.pack_writeBuff("MEAS:FUNC?");
+	device.pack_writeBuff("MEAS:FUNC ZTH");
 	device.write();
-	device.read();
-	device.print_message(device.readBuffer);
+	Sleep(2000);
+	device.pack_writeBuff("MEAS:FUNC CSR");
+	device.write();
+	
+	//write measurement function
+	/*device.set_measFunc(bk891::MeasFunc::ZTH);
+	Sleep(2000);
+	device.set_measFunc(bk891::MeasFunc::CSR);
+	Sleep(2000);*/
+
+
+	//terminate device connection
+	device.disconnect();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

@@ -7,40 +7,66 @@ device's communication API.
 #pragma once
 
 //includes
-#include<windows.h>
+#include <windows.h>
+#include <map>
 #include "SerialBase.h"
 
-namespace bk891
+
+namespace bk891Internal
 {
+	//commands
 	const char query_ID[] = "*IDN?";				//fetch device ID
 	const char fetch_data[] = "FETC?";				//fetch current measurement
 	const char query_measParams[] = "MEAS:FUNC?";	//fetch measurement parameters
-	//enum definitions
-	//primary measurement symbols
-	typedef enum
-	{
-		Cs,						//series capacitance
-		Cp,						//parallel capacitance
-		Ls,						//series inductance
-		Lp,						//parallel inductance
-		Z,						//impedance
-		Y,						//admittance
-		R_prim,					//Resistance at current AC frequency and level
-		G_prim,					//Conductance
-		DCR,					//DC resistance
-	}primMeasEnum;
+	const char set_measParams[] = "MEAS:FUNC ";		//set measurement parameters
 
-	//secondary measurement symbols for all primary measurements
-	typedef enum
+	//function strings
+	const char func_default[] = "";
+	const char func_CSQ[] = "CSQ";
+	const char func_CSD[] = "CSD";
+	const char func_CSR[] = "CSR";
+	const char func_CPQ[] = "CPQ";
+	const char func_CPD[] = "CPD";
+	const char func_CPR[] = "CPR";
+	const char func_CPG[] = "CPG";
+	const char func_LSQ[] = "LSQ";
+	const char func_LSD[] = "LSD";
+	const char func_LSR[] = "LSR";
+	const char func_LPQ[] = "LPQ";
+	const char func_LPD[] = "LPD";
+	const char func_LPR[] = "LPR";
+	const char func_LPG[] = "LPG";
+	const char func_ZTH[] = "ZTH";
+	const char func_YTH[] = "YTH";
+	const char func_RX[] = "RX";
+	const char func_GB[] = "GB";
+}
+
+namespace bk891
+{										
+	//measurement function enum class
+	enum class MeasFunc
 	{
-		Q,						//Q factor
-		D,						//Dialectric value
-		R_sec,					//resistance
-		G_sec,					//conductance
-		THETA,					//phase angle
-		X,						//reactance
-		B,						//susceptance
-	}secMeasEnum;
+		DEFAULT,	//default unselected value
+		CSQ,		//series capacitance & Q factor
+		CSD,		//series capacitance & Dialec. factor
+		CSR,		//series capacitance & resistance
+		CPQ,		//parallel capacitance & Q factor
+		CPD,		//parallel capacitance & Dialec. factor
+		CPR,		//parallel capacitance & resistance
+		CPG,		//parallel capacitance & conductance
+		LSQ,		//series inductance & Q factor
+		LSD,		//series inductance & Dialec. factor
+		LSR,		//series inductance & resistance
+		LPQ,		//parallel inductance & Q factor
+		LPD,		//parallel inductance & Dialec. factor
+		LPR,		//parallel inductance & resistance
+		LPG,		//parallel inductance & conductance
+		ZTH,		//impedance and phase
+		YTH,		//admittance and phase
+		RX,			//resistance and reactance
+		GB,			//conductance and susceptance
+	};
 
 	//structure definitions
 	//structure for measured data
@@ -51,13 +77,12 @@ namespace bk891
 		double secVal;								//value for secondary measurement
 		std::string secUnit;						//unit for secondary measurement
 	}measDataStruct;
-
-	//structure for configuration data
-	typedef struct
-	{
-		primMeasEnum primMeas;
-	}measSettingsStruct;
 }
+
+
+
+
+
 //object definition
 class BK891LCR : public virtual SerialBase
 {
@@ -80,6 +105,10 @@ public:
 
 	//Get current device measurement with FETC? query
 	void fetch_meas(void);
+	
+	//set primary and secondary measurement functions
+	void set_measFunc(bk891::MeasFunc func);
+
 
 protected:
 	//attributes
@@ -87,8 +116,15 @@ protected:
 
 private:
 	//attributes
-	bk891::measDataStruct measData;
+	bk891::measDataStruct measData;								//structure holding measurement data and unit information
+	std::map<bk891::MeasFunc, std::string> funcConfig;	//map holding measurement function information
+
 	//methods
+	//private method to store given preformatted string to measurement data structure
 	void store_measData(std::string s);
+
+	//private method to initialize function config map
+	void init_funcConfig(void);
 };
+
 
