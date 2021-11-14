@@ -1,5 +1,5 @@
 # MotorMeter V-0.0.1
-Desktop application to characterize motors from impedance data
+Desktop application to characterize piezo actuators from impedance data
 
 ## Overview
 MotorMeter is a desktop application to serve as a one stop shop for establishing piezo based motor characteristics through impedance analysis. This tool integrates the hardware strengths of benchtop impedance analyzers with a user friendly desktop application for in-depth analysis. The MotorMeter application enables low end impedance analyzers to be extended and perform measurements with few limitations. This wealth of experimental data can be investigated further with a built in equivalent circuit analysis tool called Zfit.
