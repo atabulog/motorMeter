@@ -17,8 +17,13 @@ namespace bk891Internal
 	//commands
 	const char query_ID[] = "*IDN?";				//fetch device ID
 	const char fetch_data[] = "FETC?";				//fetch current measurement
-	const char query_measParams[] = "MEAS:FUNC?";	//fetch measurement parameters
-	const char set_measParams[] = "MEAS:FUNC ";		//set measurement parameters
+	const char query_measFunc[] = "MEAS:FUNC?";		//fetch measurement functions
+	const char set_measFunc[] = "MEAS:FUNC ";		//set measurement functions
+	const char query_measLevel[] = "LEV:AC?";		//fetch measurement level 
+	const char set_measLevel[] = "LEV:AC";			//set measurement level 
+	
+	//default values
+	const double default_measSpeed = 45000;			//default measurement frequency outside audible range
 
 	//function strings
 	const char func_default[] = "";
@@ -40,6 +45,10 @@ namespace bk891Internal
 	const char func_YTH[] = "YTH";
 	const char func_RX[] = "RX";
 	const char func_GB[] = "GB";
+
+	//measurement levels
+	const double level_LOW = 0.5;
+	const double level_HIGH = 1.0;
 }
 
 namespace bk891
@@ -68,20 +77,41 @@ namespace bk891
 		GB,			//conductance and susceptance
 	};
 
+	enum class MeasRange
+	{
+		AUTO,		//automatically determine freq test range
+		HOLD,		//hold current range
+	};
+
+	enum class MeasSpeed
+	{
+		SLOW,		//800ms per measurement (per manual)
+		FAST,		//200ms per measurement (per manual)
+	};
+
+	enum class MeasLevel
+	{
+		LOW,		//0.5 Vrms signal (per manual)
+		HIGH,		//1.0 Vrms signal (per manual)
+	};
+
 	//structure definitions
 	//structure for measured data
 	typedef struct
 	{
-		double primVal;								//value for primary measurement
-		std::string primUnit;						//unit for primary measurement
-		double secVal;								//value for secondary measurement
-		std::string secUnit;						//unit for secondary measurement
+		double primVal;				//value for primary measurement
+		std::string primUnit;		//unit for primary measurement
+		double secVal;				//value for secondary measurement
+		std::string secUnit;		//unit for secondary measurement
 	}measDataStruct;
 
 	typedef struct
 	{
-		bk891::MeasFunc measFunc;
-		double frequency;
+		bk891::MeasFunc measFunc;	//current measurement function
+		bk891::MeasLevel level;		//current measurement level
+		bk891::MeasRange range;		//current measurement range
+		bk891::MeasSpeed speed;		//current measurement speed
+		double frequency;			//current measurement frequency
 	}measConfigStruct;
 }
 
@@ -109,14 +139,29 @@ public:
 	//Get device ID from SCPI *IDN? query
 	void get_devID(void);
 
-	//Get current device measurement with FETC? query
-	void fetch_meas(void);
 	
+	//Get current device measurement function with FETC? query
+	void fetch_measData(void);
+
+	//public measurement function methods
 	//set primary and secondary measurement functions
 	void set_measFunc(bk891::MeasFunc func);
-
 	//fetch primary and secondary measurement functions from device
 	void query_measFunc(void);
+
+	//public measurement level methods
+	//Get current device measurement level from device
+	void query_measLevel(void);
+	//set measurement level
+	void set_measLevel(void);
+	
+	//public measurement range methods
+
+
+	//public measurement speed methods
+
+
+	//public measurement frequency methods
 
 protected:
 	//attributes
@@ -127,7 +172,7 @@ private:
 	bk891::measDataStruct measData;							//structure holding measurement data and unit information
 	bk891::measConfigStruct measConfig;						//structure holding measurement configuration information
 	std::map<bk891::MeasFunc, std::string> funcConfigMap;	//map holding measurement function information
-
+	std::map<bk891::MeasLevel, double> measLevelMap;
 	//methods
 	//private method to store given preformatted string to measurement data structure
 	void store_measData(std::string s);
@@ -135,8 +180,11 @@ private:
 	//private method to parse primary and secondary measurement function from device query
 	void parse_measFunc(std::string s);
 
+	//private method to parse measurement level from device
+	void parse_measLevel(std::string s);
+
 	//private method to initialize function config map
-	void init_funcConfig(void);
+	void init_attributeMaps(void);
 };
 
 

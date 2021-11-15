@@ -30,14 +30,22 @@ BK891LCR::BK891LCR(std::string port, bool printMessage)
 	this->timeout.ReadTotalTimeoutConstant = 100;
 	this->timeout.WriteTotalTimeoutConstant = 100;
 
+	//initialize map attributes
+	this->init_attributeMaps();
+	
 	//configure default measurement data
 	this->measData.primVal = 0.0;
 	this->measData.primUnit = "";
 	this->measData.secUnit = "";
 	this->measData.secVal = 0.0;
 
-	//initialize default measurement function
-	this->init_funcConfig();
+	//configure default measurement configuration
+	this->measConfig.measFunc = bk891::MeasFunc::DEFAULT;
+	this->measConfig.level = bk891::MeasLevel::HIGH;
+	this->measConfig.range = bk891::MeasRange::AUTO;
+	this->measConfig.speed = bk891::MeasSpeed::FAST;
+	this->measConfig.frequency = bk891Internal::default_measSpeed;
+	
 
 	//establish serial connection with these settings
 	this->connect();
@@ -80,7 +88,7 @@ void BK891LCR::get_devID(void)
 }
 
 //Get current device measurement with FETC? query
-void BK891LCR::fetch_meas(void)
+void BK891LCR::fetch_measData(void)
 {
 	//pack query and write to device
 	this->pack_writeBuff(bk891Internal::fetch_data);
@@ -94,10 +102,12 @@ void BK891LCR::fetch_meas(void)
 }
 
 
+
 //set primary and secondary measurement functions
 void BK891LCR::set_measFunc(bk891::MeasFunc func)
 {
-	std::string temp = bk891Internal::set_measParams + this->funcConfigMap[func];
+	std::string temp = bk891Internal::set_measFunc + this->funcConfigMap[func];
+	this->measConfig.measFunc = func;
 	//pack stored string for given measurement function and write to device
 	this->pack_writeBuff(temp.c_str());
 	this->write();
@@ -111,7 +121,7 @@ void BK891LCR::set_measFunc(bk891::MeasFunc func)
 void BK891LCR::query_measFunc(void)
 {
 	//pack stored string for given measurement function and write to device
-	this->pack_writeBuff(bk891Internal::query_measParams);
+	this->pack_writeBuff(bk891Internal::query_measFunc);
 	this->write();
 
 	//read response and print message
@@ -137,6 +147,32 @@ void BK891LCR::parse_measFunc(std::string s)
 	}
 }
 
+
+//Get current device measurement level from device
+void BK891LCR::query_measLevel(void)
+{
+	//pack stored string for given measurement function and write to device
+	this->pack_writeBuff(bk891Internal::query_measLevel);
+	this->write();
+
+	//read response and print message
+	this->read();
+	//parse out measurement level from response on read buffer
+	this->parse_measLevel(std::string(this->readBuffer));
+	this->print_message(this->readBuffer);
+}
+
+//set measurement level
+void BK891LCR::set_measLevel(void)
+{
+	this->measConfig.level = bk891::MeasLevel::HIGH;
+}
+
+void BK891LCR::parse_measLevel(std::string s)
+{
+	double temp = std::stod(s);
+
+}
 
 
 //private function to store measurement data
@@ -193,9 +229,11 @@ void BK891LCR::store_measData(std::string s)
 }
 
 //private method to initialize function config map
-void BK891LCR::init_funcConfig(void)
+void BK891LCR::init_attributeMaps(void)
 {
 	//add all enum keys and appropriate string value pairs to config map
+	
+	//measurement function map
 	this->funcConfigMap.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::DEFAULT, ""));
 	this->funcConfigMap.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::CSQ, bk891Internal::func_CSQ));
 	this->funcConfigMap.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::CSD, bk891Internal::func_CSD));
@@ -215,4 +253,8 @@ void BK891LCR::init_funcConfig(void)
 	this->funcConfigMap.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::YTH, bk891Internal::func_YTH));
 	this->funcConfigMap.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::RX, bk891Internal::func_RX));
 	this->funcConfigMap.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::GB, bk891Internal::func_GB));
+	
+	//measurement level map
+	this->measLevelMap.insert(std::pair<bk891::MeasLevel, double>(bk891::MeasLevel::LOW, bk891Internal::level_LOW));
+	this->measLevelMap.insert(std::pair<bk891::MeasLevel, double>(bk891::MeasLevel::HIGH, bk891Internal::level_HIGH));
 }
