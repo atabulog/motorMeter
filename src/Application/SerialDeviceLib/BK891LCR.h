@@ -77,6 +77,12 @@ namespace bk891
 		double secVal;								//value for secondary measurement
 		std::string secUnit;						//unit for secondary measurement
 	}measDataStruct;
+
+	typedef struct
+	{
+		bk891::MeasFunc measFunc;
+		double frequency;
+	}measConfigStruct;
 }
 
 
@@ -109,6 +115,8 @@ public:
 	//set primary and secondary measurement functions
 	void set_measFunc(bk891::MeasFunc func);
 
+	//fetch primary and secondary measurement functions from device
+	void query_measFunc(void);
 
 protected:
 	//attributes
@@ -116,12 +124,16 @@ protected:
 
 private:
 	//attributes
-	bk891::measDataStruct measData;								//structure holding measurement data and unit information
-	std::map<bk891::MeasFunc, std::string> funcConfig;	//map holding measurement function information
+	bk891::measDataStruct measData;							//structure holding measurement data and unit information
+	bk891::measConfigStruct measConfig;						//structure holding measurement configuration information
+	std::map<bk891::MeasFunc, std::string> funcConfigMap;	//map holding measurement function information
 
 	//methods
 	//private method to store given preformatted string to measurement data structure
 	void store_measData(std::string s);
+
+	//private method to parse primary and secondary measurement function from device query
+	void parse_measFunc(std::string s);
 
 	//private method to initialize function config map
 	void init_funcConfig(void);

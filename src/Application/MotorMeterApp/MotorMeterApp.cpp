@@ -9,9 +9,8 @@ int main()
     BK891LCR device = BK891LCR("COM3", true);
 	device.pack_writeBuff("MEAS:FUNC ZTH");
 	device.write();
-	Sleep(2000);
-	device.pack_writeBuff("MEAS:FUNC CSR");
-	device.write();
+	Sleep(100);
+	device.query_measFunc();
 	
 	//write measurement function
 	/*device.set_measFunc(bk891::MeasFunc::ZTH);
