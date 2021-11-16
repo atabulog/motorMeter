@@ -10,13 +10,13 @@ int main()
 	device.query_measLevel();
 	
 	//write measurement function
-	/*device.set_measFunc(bk891::MeasFunc::ZTH);
-	Sleep(2000);
-	device.set_measFunc(bk891::MeasFunc::CSR);
-	Sleep(2000);*/
+	device.set_measFunc(bk891::MeasFunc::ZTH);
+	Sleep(100);
+	device.set_measLevel(bk891::MeasLevel::HIGH);
+	Sleep(100);
+	device.query_measLevel();
 
-
-	//terminate device connection
+	//terminate device conn ection
 	device.disconnect();
 }
 

@@ -157,21 +157,37 @@ void BK891LCR::query_measLevel(void)
 
 	//read response and print message
 	this->read();
-	//parse out measurement level from response on read buffer
-	this->parse_measLevel(std::string(this->readBuffer));
+	//parse out measurement level from response on first three bytes of read buffer
+	this->parse_measLevel(std::string(this->readBuffer, 3));
 	this->print_message(this->readBuffer);
 }
 
 //set measurement level
-void BK891LCR::set_measLevel(void)
+void BK891LCR::set_measLevel(bk891::MeasLevel level)
 {
-	this->measConfig.level = bk891::MeasLevel::HIGH;
+	//build command string and update current level
+	std::string temp = bk891Internal::set_measLevel + this->measLevelMap[level];
+	this->measConfig.level = level;
+	//pack stored string for given measurement function and write to device
+	this->pack_writeBuff(temp.c_str());
+	this->write();
+
+	//read response and print message
+	this->read();
+	this->print_message(this->readBuffer);
 }
 
 void BK891LCR::parse_measLevel(std::string s)
 {
-	double temp = std::stod(s);
-
+	//compare strings to determine measurement level
+	if (!s.compare(bk891Internal::strLevel_HIGH))
+	{
+		this->measConfig.level = bk891::MeasLevel::HIGH;
+	}
+	else if (!s.compare(bk891Internal::strLevel_LOW))
+	{
+		this->measConfig.level = bk891::MeasLevel::LOW;
+	}
 }
 
 
@@ -255,6 +271,6 @@ void BK891LCR::init_attributeMaps(void)
 	this->funcConfigMap.insert(std::pair<bk891::MeasFunc, std::string>(bk891::MeasFunc::GB, bk891Internal::func_GB));
 	
 	//measurement level map
-	this->measLevelMap.insert(std::pair<bk891::MeasLevel, double>(bk891::MeasLevel::LOW, bk891Internal::level_LOW));
-	this->measLevelMap.insert(std::pair<bk891::MeasLevel, double>(bk891::MeasLevel::HIGH, bk891Internal::level_HIGH));
+	this->measLevelMap.insert(std::pair<bk891::MeasLevel, std::string>(bk891::MeasLevel::LOW, bk891Internal::strLevel_LOW));
+	this->measLevelMap.insert(std::pair<bk891::MeasLevel, std::string>(bk891::MeasLevel::HIGH, bk891Internal::strLevel_HIGH));
 }

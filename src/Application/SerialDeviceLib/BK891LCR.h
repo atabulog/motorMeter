@@ -20,7 +20,7 @@ namespace bk891Internal
 	const char query_measFunc[] = "MEAS:FUNC?";		//fetch measurement functions
 	const char set_measFunc[] = "MEAS:FUNC ";		//set measurement functions
 	const char query_measLevel[] = "LEV:AC?";		//fetch measurement level 
-	const char set_measLevel[] = "LEV:AC";			//set measurement level 
+	const char set_measLevel[] = "LEV:AC ";			//set measurement level 
 	
 	//default values
 	const double default_measSpeed = 45000;			//default measurement frequency outside audible range
@@ -49,6 +49,8 @@ namespace bk891Internal
 	//measurement levels
 	const double level_LOW = 0.5;
 	const double level_HIGH = 1.0;
+	const char strLevel_LOW[] = "0.5";
+	const char strLevel_HIGH[] = "1.0";
 }
 
 namespace bk891
@@ -153,7 +155,7 @@ public:
 	//Get current device measurement level from device
 	void query_measLevel(void);
 	//set measurement level
-	void set_measLevel(void);
+	void set_measLevel(bk891::MeasLevel level);
 	
 	//public measurement range methods
 
@@ -172,7 +174,7 @@ private:
 	bk891::measDataStruct measData;							//structure holding measurement data and unit information
 	bk891::measConfigStruct measConfig;						//structure holding measurement configuration information
 	std::map<bk891::MeasFunc, std::string> funcConfigMap;	//map holding measurement function information
-	std::map<bk891::MeasLevel, double> measLevelMap;
+	std::map<bk891::MeasLevel, std::string> measLevelMap;
 	//methods
 	//private method to store given preformatted string to measurement data structure
 	void store_measData(std::string s);
