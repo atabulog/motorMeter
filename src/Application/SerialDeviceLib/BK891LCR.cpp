@@ -127,7 +127,7 @@ void BK891LCR::query_measFunc(void)
 	//read response and print message
 	this->read();
 	//parse out measurement function from first three chars in read buffer
-	this->parse_measFunc(std::string(this->readBuffer, 3));
+	this->parse_measFunc(strTools::rtrim(this->readBuffer));
 	this->print_message(this->readBuffer);
 }
 
@@ -159,7 +159,7 @@ void BK891LCR::query_measLevel(void)
 	//read response and print message
 	this->read();
 	//parse out measurement level from response on first three bytes of read buffer
-	this->parse_measLevel(std::string(this->readBuffer, 3));
+	this->parse_measLevel(strTools::rtrim(this->readBuffer));
 	this->print_message(this->readBuffer);
 }
 

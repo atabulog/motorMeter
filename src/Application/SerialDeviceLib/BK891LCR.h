@@ -16,7 +16,7 @@ namespace bk891Internal
 {
 	//commands
 	const char query_ID[] = "*IDN?";				//fetch device ID
-	const char fetch_data[] = "FETC?";				//fetch current measurement
+	const char fetch_data[] = "MEAS:RESU?";				//fetch current measurement
 	const char query_measFunc[] = "MEAS:FUNC?";		//fetch measurement functions
 	const char set_measFunc[] = "MEAS:FUNC ";		//set measurement functions
 	const char query_measLevel[] = "LEV:AC?";		//fetch measurement level 

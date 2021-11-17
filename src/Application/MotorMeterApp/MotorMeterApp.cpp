@@ -28,6 +28,9 @@ int main()
 	device.query_measFreq();
 	device.set_measFreq(53250);
 
+	//query current measurement
+	device.fetch_measData();
+
 	//terminate device conn ection
 	device.disconnect();
 }
