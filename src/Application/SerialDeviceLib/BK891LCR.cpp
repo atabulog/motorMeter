@@ -44,7 +44,7 @@ BK891LCR::BK891LCR(std::string port, bool printMessage)
 	this->measConfig.level = bk891::MeasLevel::HIGH;
 	this->measConfig.range = bk891::MeasRange::AUTO;
 	this->measConfig.speed = bk891::MeasSpeed::FAST;
-	this->measConfig.frequency = bk891Internal::default_measSpeed;
+	this->measConfig.frequency = bk891Internal::default_measFreq;
 	
 
 	//establish serial connection with these settings
@@ -148,6 +148,7 @@ void BK891LCR::parse_measFunc(std::string s)
 }
 
 
+
 //Get current device measurement level from device
 void BK891LCR::query_measLevel(void)
 {
@@ -188,6 +189,125 @@ void BK891LCR::parse_measLevel(std::string s)
 	{
 		this->measConfig.level = bk891::MeasLevel::LOW;
 	}
+}
+
+
+//get current measurement range value from device
+void BK891LCR::query_measRange(void)
+{
+	//pack stored string for given measurement function and write to device
+	this->pack_writeBuff(bk891Internal::query_measRange);
+	this->write();
+	//read response
+	this->read();
+	//parse out measurement range then print message
+	this->parse_measRange(strTools::rtrim(this->readBuffer));
+	this->print_message(this->readBuffer);
+}
+//set current measurement range for device
+void BK891LCR::set_measRange(bk891::MeasRange range)
+{
+	//build command string and update current value
+	std::string temp = bk891Internal::set_measRange + this->measRangeMap[range];
+	this->measConfig.range = range;
+
+	//pack command and write to device
+	this->pack_writeBuff(temp.c_str());
+	this->write();
+
+	//read response and print message
+	this->read();
+	this->print_message(this->readBuffer);
+}
+
+//private method to parse measurement range from device
+void BK891LCR::parse_measRange(std::string s)
+{
+	//compare strings to determine mesurement range
+	if (!s.compare(bk891Internal::strRange_AUTO))
+	{
+		this->measConfig.range = bk891::MeasRange::AUTO;
+	}
+	else if (!s.compare(bk891Internal::strRange_HOLD))
+	{
+		this->measConfig.range = bk891::MeasRange::HOLD;
+	}
+}
+
+
+
+//query current measurement speed for device
+void BK891LCR::query_measSpeed(void)
+{
+	//pack command string and write to device
+	this->pack_writeBuff(bk891Internal::query_measSpeed);
+	this->write();
+	//read reponse
+	this->read();
+	//parse out measurement speed
+	this->parse_measSpeed(strTools::rtrim(this->readBuffer));
+	this->print_message(this->readBuffer);
+}
+//set current measurement speed for device
+void BK891LCR::set_measSpeed(bk891::MeasSpeed speed)
+{
+	//build command string and update current value
+	std::string temp = bk891Internal::set_measSpeed + this->measSpeedMap[speed];
+	this->measConfig.speed = speed;
+
+	//pack command and write to device
+	this->pack_writeBuff(temp.c_str());
+	this->write();
+
+	//read response and print message
+	this->read();
+	this->print_message(this->readBuffer);
+}
+
+//private method to parse measurement speed from device
+void BK891LCR::parse_measSpeed(std::string s)
+{
+	//compare strings to determine mesurement range
+	if (!s.compare(bk891Internal::strSpeed_FAST))
+	{
+		this->measConfig.speed = bk891::MeasSpeed::FAST;
+	}
+	else if (!s.compare(bk891Internal::strSpeed_SLOW))
+	{
+		this->measConfig.speed = bk891::MeasSpeed::SLOW;
+	}
+}
+
+
+
+//query current measurement frequency for device
+void BK891LCR::query_measFreq(void)
+{
+	//pack command string and write to device
+	this->pack_writeBuff(bk891Internal::query_measFreq);
+	this->write();
+	//read response
+	this->read();
+	//parse out measurement frequency and print message
+	this->measConfig.frequency = std::stod(std::string(this->readBuffer));
+	this->print_message(this->readBuffer);
+}
+
+//set current measurement frequency for device
+void BK891LCR::set_measFreq(double freq)
+{
+	//build command string and update current value
+	this->measConfig.frequency = freq;
+	std::string temp = bk891Internal::set_measFreq + std::to_string(this->measConfig.frequency);
+
+	//pack commadn and write to device
+	this->pack_writeBuff(temp.c_str());
+	this->write();
+
+	//read response and print message
+	this->read();
+	this->print_message(this->readBuffer);
+
 }
 
 
@@ -273,4 +393,12 @@ void BK891LCR::init_attributeMaps(void)
 	//measurement level map
 	this->measLevelMap.insert(std::pair<bk891::MeasLevel, std::string>(bk891::MeasLevel::LOW, bk891Internal::strLevel_LOW));
 	this->measLevelMap.insert(std::pair<bk891::MeasLevel, std::string>(bk891::MeasLevel::HIGH, bk891Internal::strLevel_HIGH));
+	
+	//measurement speed map
+	this->measSpeedMap.insert(std::pair<bk891::MeasSpeed, std::string>(bk891::MeasSpeed::FAST, bk891Internal::strSpeed_FAST));
+	this->measSpeedMap.insert(std::pair<bk891::MeasSpeed, std::string>(bk891::MeasSpeed::SLOW, bk891Internal::strSpeed_SLOW));
+
+	//measurement range map
+	this->measRangeMap.insert(std::pair<bk891::MeasRange, std::string>(bk891::MeasRange::AUTO, bk891Internal::strRange_AUTO));
+	this->measRangeMap.insert(std::pair<bk891::MeasRange, std::string>(bk891::MeasRange::HOLD, bk891Internal::strRange_HOLD));
 }

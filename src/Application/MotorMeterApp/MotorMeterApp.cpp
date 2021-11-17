@@ -6,15 +6,27 @@
 
 int main()
 {
+	//connect to device
     BK891LCR device = BK891LCR("COM3", true);
-	device.query_measLevel();
 	
 	//write measurement function
 	device.set_measFunc(bk891::MeasFunc::ZTH);
-	Sleep(100);
+	
+	//set and query measurement level
 	device.set_measLevel(bk891::MeasLevel::HIGH);
-	Sleep(100);
 	device.query_measLevel();
+
+	//set and query measurement range
+	device.set_measRange(bk891::MeasRange::AUTO);
+	device.query_measRange();
+
+	//set and query measurement speed
+	device.set_measSpeed(bk891::MeasSpeed::FAST);
+	device.query_measSpeed();
+
+	//set and query measurement frequency
+	device.query_measFreq();
+	device.set_measFreq(53250);
 
 	//terminate device conn ection
 	device.disconnect();

@@ -21,9 +21,16 @@ namespace bk891Internal
 	const char set_measFunc[] = "MEAS:FUNC ";		//set measurement functions
 	const char query_measLevel[] = "LEV:AC?";		//fetch measurement level 
 	const char set_measLevel[] = "LEV:AC ";			//set measurement level 
+	const char query_measRange[] = "MEAS:RANG?";	//fetch measurement range 
+	const char set_measRange[] = "MEAS:RANG ";		//set measurement range
+	const char query_measSpeed[] = "MEAS:SPEE?";	//fetch measurement speed
+	const char set_measSpeed[] = "MEAS:SPEE ";		//set measurement speed
+	const char query_measFreq[] = "FREQ?";			//fetch measurement frequnecy
+	const char set_measFreq[] = "FREQ ";			//set measurement frequency
 	
 	//default values
-	const double default_measSpeed = 45000;			//default measurement frequency outside audible range
+	const double default_delayms = 50;				//default serial communication delay in ms
+	const double default_measFreq = 47500;			//default measurement frequency outside audible range
 
 	//function strings
 	const char func_default[] = "";
@@ -51,6 +58,10 @@ namespace bk891Internal
 	const double level_HIGH = 1.0;
 	const char strLevel_LOW[] = "0.5";
 	const char strLevel_HIGH[] = "1.0";
+	const char strRange_AUTO[] = "AUTO";
+	const char strRange_HOLD[] = "HOLD";
+	const char strSpeed_FAST[] = "FAST";
+	const char strSpeed_SLOW[] = "SLOW";
 }
 
 namespace bk891
@@ -158,12 +169,22 @@ public:
 	void set_measLevel(bk891::MeasLevel level);
 	
 	//public measurement range methods
-
+	//get current measurement range value from device
+	void query_measRange(void);
+	//set current measurement range for device
+	void set_measRange(bk891::MeasRange range);
 
 	//public measurement speed methods
-
+	//query current measurement speed for device
+	void query_measSpeed(void);
+	//set current measurement speed for device
+	void set_measSpeed(bk891::MeasSpeed speed);
 
 	//public measurement frequency methods
+	//query current measurement frequency for device
+	void query_measFreq(void);
+	//set current measurement frequency for device
+	void set_measFreq(double freq);
 
 protected:
 	//attributes
@@ -174,8 +195,11 @@ private:
 	bk891::measDataStruct measData;							//structure holding measurement data and unit information
 	bk891::measConfigStruct measConfig;						//structure holding measurement configuration information
 	std::map<bk891::MeasFunc, std::string> funcConfigMap;	//map holding measurement function information
-	std::map<bk891::MeasLevel, std::string> measLevelMap;
-	//methods
+	std::map<bk891::MeasLevel, std::string> measLevelMap;	//map holding measurement level information
+	std::map<bk891::MeasSpeed, std::string> measSpeedMap;	//map holding measurement speed information
+	std::map<bk891::MeasRange, std::string> measRangeMap;	//map holding measurement range information
+	
+															//methods
 	//private method to store given preformatted string to measurement data structure
 	void store_measData(std::string s);
 
@@ -184,6 +208,12 @@ private:
 
 	//private method to parse measurement level from device
 	void parse_measLevel(std::string s);
+
+	//private method to parse measurement speed from device
+	void parse_measSpeed(std::string s);
+
+	//private method to parse measurement range from device
+	void parse_measRange(std::string s);
 
 	//private method to initialize function config map
 	void init_attributeMaps(void);
