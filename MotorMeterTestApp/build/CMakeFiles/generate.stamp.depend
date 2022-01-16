@@ -1,0 +1,72 @@
+# CMake generation dependency list for this directory.
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/CMakeCXXInformation.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/CMakeGenericSystem.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/CMakeInitializeConfigs.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/CMakeLanguageInformation.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/CMakeParseArguments.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/CMakeRCInformation.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/Compiler/MSVC-CXX.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/Platform/Windows-MSVC.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/Platform/Windows.cmake
+C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/Platform/WindowsPaths.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5/Qt5Config.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5/Qt5ModuleLocation.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Core/Qt5CoreMacros.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QSvgIconPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QSvgPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QWebGLIntegrationPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QWindowsDirect2DIntegrationPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QWindowsIntegrationPlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Network/Qt5NetworkConfig.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Network/Qt5NetworkConfigVersion.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Network/Qt5Network_QGenericEnginePlugin.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5QmlConfig.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5QmlConfigExtras.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5QmlConfigVersion.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QDebugMessageServiceFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QLocalClientConnectionFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QQmlDebugServerFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QQmlDebuggerServiceFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QQmlInspectorServiceFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QQmlNativeDebugConnectorFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QQmlNativeDebugServiceFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QQmlPreviewServiceFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QQmlProfilerServiceFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QQuickProfilerAdapterFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Qml/Qt5Qml_QTcpServerConnectionFactory.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5QmlModels/Qt5QmlModelsConfig.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5QmlModels/Qt5QmlModelsConfigVersion.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Quick/Qt5QuickConfig.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Quick/Qt5QuickConfigVersion.cmake
+C:/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5Quick/Qt5Quick_QSGD3D12Adaptation.cmake
+C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/CMakeLists.txt
+C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/3.20.21032501-MSVC_2/CMakeCXXCompiler.cmake
+C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/3.20.21032501-MSVC_2/CMakeRCCompiler.cmake
+C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/3.20.21032501-MSVC_2/CMakeSystem.cmake
+C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/qml.qrc

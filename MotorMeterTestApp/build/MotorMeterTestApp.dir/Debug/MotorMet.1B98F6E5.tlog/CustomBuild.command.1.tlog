@@ -1,0 +1,30 @@
+^C:\USERS\AUSTI\DOCUMENTS\GIT REPOS\MOTORMETER\MOTORMETERTESTAPP\BUILD\CMAKEFILES\89468CFB4CA00F3ADB3E45FF0D1B118C\QRC_QML.CPP.RULE
+setlocal
+cd "C:\Users\Austi\Documents\git repos\motorMeter\MotorMeterTestApp\build"
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E cmake_autorcc "C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/MotorMeterTestApp_autogen.dir/AutoRcc_qml_EWIEGA46WW_Info.json" Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E cmake_autorcc "C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/MotorMeterTestApp_autogen.dir/AutoRcc_qml_EWIEGA46WW_Info.json" Release
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E cmake_autorcc "C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/MotorMeterTestApp_autogen.dir/AutoRcc_qml_EWIEGA46WW_Info.json" MinSizeRel
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E cmake_autorcc "C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/MotorMeterTestApp_autogen.dir/AutoRcc_qml_EWIEGA46WW_Info.json" RelWithDebInfo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\AUSTI\DOCUMENTS\GIT REPOS\MOTORMETER\MOTORMETERTESTAPP\CMAKELISTS.TXT
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SC:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp" "-BC:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build" --check-stamp-file "C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

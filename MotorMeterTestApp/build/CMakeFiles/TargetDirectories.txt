@@ -1,0 +1,3 @@
+C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/MotorMeterTestApp.dir
+C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Austi/Documents/git repos/motorMeter/MotorMeterTestApp/build/CMakeFiles/ZERO_CHECK.dir
