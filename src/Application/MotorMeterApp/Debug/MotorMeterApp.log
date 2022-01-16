@@ -1,3 +1,0 @@
-﻿  MotorMeterApp.cpp
-SerialDeviceLib.lib(SerialDeviceLib.obj) : warning LNK4204: 'C:\Users\Austi\Documents\git repos\motorMeter\src\Application\Debug\SerialDeviceLib.pdb' is missing debugging information for referencing module; linking object as if no debug info
-  MotorMeterApp.vcxproj -> C:\Users\Austi\Documents\git repos\motorMeter\src\Application\Debug\MotorMeterApp.exe
